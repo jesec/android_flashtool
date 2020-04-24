@@ -293,11 +293,11 @@ h1 small {
 footer {
   font-size: 12px;
   color: #999;
-  margin: 0 16px 20px;
+  margin: auto auto 20px;
 }
 
 .container {
-  margin: 0;
+  margin: auto;
   max-width: 600px;
 }
 
