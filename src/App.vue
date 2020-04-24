@@ -201,6 +201,7 @@ export default {
         this.adb = await this.usb.connectAdb('host::');
         if (this.adb.mode != 'sideload') {
           this.showSnackbar(this.$t('hint:sideload'));
+          await this.adb.reboot('sideload');
           this.usb.close();
           return;
         }
