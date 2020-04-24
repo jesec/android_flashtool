@@ -4,6 +4,20 @@
       {{ snackbarText }}
     </v-snackbar>
 
+    <v-dialog v-model="dialogShown" :max-width="dialogOptions.width" :style="{ zIndex: dialogOptions.zIndex }" @keydown.esc="cancel">
+      <v-card>
+        <v-toolbar dark :color="dialogOptions.color" dense flat>
+          <v-toolbar-title class="white--text">{{ dialogTitle }}</v-toolbar-title>
+        </v-toolbar>
+        <v-card-text v-show="!!dialogMessage" class="pa-4">{{ dialogMessage }}</v-card-text>
+        <v-card-actions class="pt-0">
+          <v-spacer></v-spacer>
+          <v-btn color="grey" text @click.native="dialogNo">No</v-btn>
+          <v-btn color="primary darken-1" text @click.native="dialogYes">Yes</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-content>
       <v-container class="container">
         <header>
@@ -172,6 +186,15 @@ export default {
       progressTotal: 0,
       snackbarShown: false,
       snackbarText: '',
+      dialogShown: false,
+      dialogResolve: null,
+      dialogMessage: null,
+      dialogTitle: null,
+      dialogOptions: {
+        color: 'primary',
+        width: 290,
+        zIndex: 200
+      }
     };
   },
   watch: {
@@ -183,6 +206,23 @@ export default {
     showSnackbar(text) {
       this.snackbarText = text;
       this.snackbarShown = true;
+    },
+    showDialog(title, message, options) {
+      this.dialogShown = true
+      this.dialogTitle = title
+      this.dialogMessage = message
+      this.dialogOptions = Object.assign(this.dialogOptions, options)
+      return new Promise((resolve) => {
+        this.dialogResolve = resolve
+      })
+    },
+    dialogYes() {
+      this.dialogResolve(true)
+      this.dialogShown = false
+    },
+    dialogNo() {
+      this.dialogResolve(false)
+      this.dialogShown = false
     },
     selectFile(file) {
       if (!file) {
@@ -200,8 +240,10 @@ export default {
         this.usb = await Adb.open('WebUSB');
         this.adb = await this.usb.connectAdb('host::');
         if (this.adb.mode != 'sideload') {
-          this.showSnackbar(this.$t('hint:sideload'));
-          await this.adb.reboot('sideload');
+          if (await this.showDialog(this.$t('prompt:reboot:title'),
+                                    this.$t('prompt:reboot:message'))) {
+            await this.adb.reboot('sideload');
+          }
           this.usb.close();
           return;
         }

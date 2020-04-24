@@ -33,7 +33,8 @@
   "done:p1": "Congratulations! Flash done. <a>Got an error?</a>",
   "done:reset": "Finish and return",
   "hint:zip": "A package should be a ZIP file.",
-  "hint:sideload": "The phone is not in Sideload mode. Rebooting to Sideload mode.",
   "hint:connect": "Connect failed, please retry.",
+  "prompt:reboot:title": "Confirm",
+  "prompt:reboot:message": "The device is not in Sideload mode. Reboot to Sideload mode?",
   "END": ""
 }
