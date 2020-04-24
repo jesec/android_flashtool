@@ -22,52 +22,52 @@
 
         <v-stepper v-model="step" vertical>
           <v-stepper-step v-bind:complete="step > 1" step="1">
-            <span class="step">{{ $t('step1:title') }}</span>
+            <span class="step">{{ $t('prepare:title') }}</span>
           </v-stepper-step>
 
           <v-stepper-content step="1">
             <div class="section" v-if="supported">
-              <p v-html="$t('step1:p1')" />
+              <p v-html="$t('prepare:p1')" />
               <p>
                 <ol>
-                  <li v-html="$t('step1:p1:li1')" />
-                  <li v-html="$t('step1:p1:li2')" />
-                  <li v-html="$t('step1:p1:li3')" />
-                  <li v-html="$t('step1:p1:li4')" />
-                  <li v-html="$t('step1:p1:li5')" />
+                  <li v-html="$t('prepare:p1:li1')" />
+                  <li v-html="$t('prepare:p1:li2')" />
+                  <li v-html="$t('prepare:p1:li3')" />
+                  <li v-html="$t('prepare:p1:li4')" />
+                  <li v-html="$t('prepare:p1:li5')" />
                 </ol>
               </p>
             </div>
             <div class="section" v-else>
-              <p v-html="$t('step1:unsupported:p1')" />
-              <p v-html="$t('step1:unsupported:p2')" />
+              <p v-html="$t('prepare:unsupported:p1')" />
+              <p v-html="$t('prepare:unsupported:p2')" />
             </div>
             <div class="nav" v-if="supported">
-              <v-btn color="primary" depressed v-on:click="step = 2">{{ $t('step1:next') }}</v-btn>
+              <v-btn color="primary" depressed v-on:click="step = 2">{{ $t('prepare:next') }}</v-btn>
             </div>
           </v-stepper-content>
 
           <v-stepper-step v-bind:complete="step > 2" step="2">
-            <span class="step" v-if="name">{{ $t('step3:title:connected', { name }) }}</span>
-            <span class="step" v-else>{{ $t('step3:title') }}</span>
+            <span class="step" v-if="name">{{ $t('connect:title:connected', { name }) }}</span>
+            <span class="step" v-else>{{ $t('connect:title') }}</span>
           </v-stepper-step>
 
           <v-stepper-content step="2">
             <div class="section">
-              <p v-html="$t('step3:p1')" />
-              <p v-html="$t('step3:p2')" />
+              <p v-html="$t('connect:p1')" />
+              <p v-html="$t('connect:p2')" />
             </div>
             <div class="nav">
-              <v-btn color="primary" depressed v-on:click="connect">{{ $t('step3:connect') }}</v-btn>
+              <v-btn color="primary" depressed v-on:click="connect">{{ $t('connect:connect') }}</v-btn>
               &nbsp;
-              <v-btn color="primary" text v-on:click="step = 1">{{ $t('step3:previous') }}</v-btn>
+              <v-btn color="primary" text v-on:click="step = 1">{{ $t('connect:previous') }}</v-btn>
             </div>
           </v-stepper-content>
 
           <v-stepper-step v-bind:complete="step > 3" step="3" v-bind:rules="[() => supported]">
-            <span class="step" v-if="!supported">{{ $t('step2:title:unsupported') }}</span>
-            <span class="step" v-else-if="selected">{{ $t('step2:title:selected', { name: selected ? selected.name : null }) }}</span>
-            <span class="step" v-else>{{ $t('step2:title') }}</span>
+            <span class="step" v-if="!supported">{{ $t('select:title:unsupported') }}</span>
+            <span class="step" v-else-if="selected">{{ $t('select:title:selected', { name: selected ? selected.name : null }) }}</span>
+            <span class="step" v-else>{{ $t('select:title') }}</span>
           </v-stepper-step>
 
           <v-stepper-content step="3">
@@ -82,50 +82,50 @@
                 v-bind:drop-directory="false"
                 v-on:input-file="selectFile"
               >
-                <div class="upload-hint active" v-if="uploader && uploader.dropActive" v-html="$t('step2:uploader:active')" />
+                <div class="upload-hint active" v-if="uploader && uploader.dropActive" v-html="$t('select:uploader:active')" />
                 <div class="upload-hint selected" v-else-if="selected">{{selected ? selected.name : null}}</div>
-                <div class="upload-hint" v-else v-html="$t('step2:uploader:normal')" />
+                <div class="upload-hint" v-else v-html="$t('select:uploader:normal')" />
               </upload>
             </div>
             <div class="nav">
-              <v-btn color="primary" depressed v-on:click="step = 4" v-bind:disabled="!selected">{{ $t('step2:next') }}</v-btn>
+              <v-btn color="primary" depressed v-on:click="step = 4" v-bind:disabled="!selected">{{ $t('select:next') }}</v-btn>
               &nbsp;
-              <v-btn color="primary" text v-on:click="step = 2">{{ $t('step2:previous') }}</v-btn>
+              <v-btn color="primary" text v-on:click="step = 2">{{ $t('select:previous') }}</v-btn>
             </div>
           </v-stepper-content>
 
           <v-stepper-step v-bind:complete="step > 4" step="4">
-            <span class="step">{{ $t('step4:title') }}</span>
+            <span class="step">{{ $t('confirm:title') }}</span>
           </v-stepper-step>
 
           <v-stepper-content step="4">
             <div class="section" v-if="flashing">
-              <p v-html="$t('step4:flashing')" />
+              <p v-html="$t('confirm:flashing')" />
               <v-progress-linear
                 v-bind:value="progress ? Math.round(progress / progressTotal * 100) : 0"
                 v-bind:indeterminate="progress == 0"
               />
             </div>
             <div class="section" v-else>
-              <p v-html="$t('step4:p1')" />
+              <p v-html="$t('confirm:p1')" />
             </div>
             <div class="nav" v-if="!flashing">
-              <v-btn color="primary" depressed v-on:click="sideload">{{ $t('step4:start') }}</v-btn>
+              <v-btn color="primary" depressed v-on:click="sideload">{{ $t('confirm:start') }}</v-btn>
               &nbsp;
-              <v-btn color="primary" text v-on:click="step = 3">{{ $t('step4:previous') }}</v-btn>
+              <v-btn color="primary" text v-on:click="step = 3">{{ $t('confirm:previous') }}</v-btn>
             </div>
           </v-stepper-content>
 
           <v-stepper-step v-bind:complete="step > 5" step="5">
-            <span class="step">{{ $t('step5:title') }}</span>
+            <span class="step">{{ $t('done:title') }}</span>
           </v-stepper-step>
 
           <v-stepper-content step="5">
             <div class="section">
-              <p v-html="$t('step5:p1')" />
+              <p v-html="$t('done:p1')" />
             </div>
             <div class="nav">
-              <v-btn color="primary" depressed v-on:click="reset">{{ $t('step5:reset') }}</v-btn>
+              <v-btn color="primary" depressed v-on:click="reset">{{ $t('done:reset') }}</v-btn>
             </div>
           </v-stepper-content>
         </v-stepper>
