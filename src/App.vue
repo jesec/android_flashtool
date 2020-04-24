@@ -239,11 +239,8 @@ export default {
         }
 
         const result = new TextDecoder("utf-8").decode(response.data);
-        if (result == 'DONEDONE' || result == 'FAILFAIL') {
-          this.step = 5;
-          this.flashing = false;
+        if (result == 'DONEDONE' || result == 'FAILFAIL')
           break;
-        }
 
         const start = parseInt(result) * chunk_size;
         let end = start + chunk_size;
@@ -257,7 +254,12 @@ export default {
         await stream.send('OKAY');
 
         this.progress += data.length;
+
+        if (this.progress >= this.progressTotal)
+          break;
       }
+      this.step = 5;
+      this.flashing = false;
     },
     reset() {
       this.name = null;
