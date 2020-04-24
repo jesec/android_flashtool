@@ -61,8 +61,9 @@
             </div>
           </v-stepper-content>
 
-          <v-stepper-step v-bind:complete="step > 2" step="2">
-            <span class="step" v-if="name">{{ $t('connect:title:connected', { name }) }}</span>
+          <v-stepper-step v-bind:complete="step > 2" step="2" v-bind:rules="[() => supported]">
+            <span class="step" v-if="!supported">{{ $t('connect:title:unsupported') }}</span>
+            <span class="step" v-else-if="name">{{ $t('connect:title:connected', { name }) }}</span>
             <span class="step" v-else>{{ $t('connect:title') }}</span>
           </v-stepper-step>
 
@@ -78,9 +79,8 @@
             </div>
           </v-stepper-content>
 
-          <v-stepper-step v-bind:complete="step > 3" step="3" v-bind:rules="[() => supported]">
-            <span class="step" v-if="!supported">{{ $t('select:title:unsupported') }}</span>
-            <span class="step" v-else-if="selected">{{ $t('select:title:selected', { name: selected ? selected.name : null }) }}</span>
+          <v-stepper-step v-bind:complete="step > 3" step="3">
+            <span class="step" v-if="selected">{{ $t('select:title:selected', { name: selected ? selected.name : null }) }}</span>
             <span class="step" v-else>{{ $t('select:title') }}</span>
           </v-stepper-step>
 
