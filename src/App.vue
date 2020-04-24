@@ -283,7 +283,7 @@ h1 small {
 }
 
 .langs {
-  max-width: 150px;
+  max-width: 180px;
   height: 38px;
   float: right;
   font-size: 12px;
