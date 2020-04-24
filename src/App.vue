@@ -390,7 +390,7 @@ footer {
 }
 
 .v-select__selection--comma {
-  margin: 7px 4px 7px 7px;
+  margin: 7px 4px 7px 7px !important;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
