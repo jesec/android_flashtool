@@ -133,7 +133,7 @@
     </v-content>
 
     <footer>
-      Copyright &copy; 2020 MoKee Open Source Project
+      &copy;2020
     </footer>
 
   </v-app>

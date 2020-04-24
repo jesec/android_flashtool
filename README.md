@@ -1,4 +1,4 @@
-[Flash MoKee](https://flash.rom.mk/)
+Open Android Flash Tool
 ==========
 
 ADB Sideload via browser.
@@ -16,26 +16,9 @@ npm run serve
 npm run build
 ```
 
-## Contribute
+## Components used
 
-As part of the MoKee Open Source Project, this repository accepts commits
-from our [Gerrit Code Review](https://mokeedev.review/) platform.
-
-```sh
-# setup
-scp -p -P 29418 YOURNAME@mokeedev.review:hooks/commit-msg $(git rev-parse --git-dir)/hooks/
-git remote add review ssh://YOURNAME@mokeedev.review:29418/MoKee/flash
-
-# submit
-git push review HEAD:refs/for/master
-```
-
-## Localization
-
-https://translate.mokeedev.com/
-
-## Libraries used
-
+* [MoKee/flash](https://github.com/MoKee/flash)
 * [webadb.js](https://github.com/webadb/webadb.js)
 * [Vue.js](https://vuejs.org/)
 * [Vuetify](https://vuetifyjs.com/)
