@@ -47,13 +47,30 @@
             </div>
           </v-stepper-content>
 
-          <v-stepper-step v-bind:complete="step > 2" step="2" v-bind:rules="[() => supported]">
+          <v-stepper-step v-bind:complete="step > 2" step="2">
+            <span class="step" v-if="name">{{ $t('step3:title:connected', { name }) }}</span>
+            <span class="step" v-else>{{ $t('step3:title') }}</span>
+          </v-stepper-step>
+
+          <v-stepper-content step="2">
+            <div class="section">
+              <p v-html="$t('step3:p1')" />
+              <p v-html="$t('step3:p2')" />
+            </div>
+            <div class="nav">
+              <v-btn color="primary" depressed v-on:click="connect">{{ $t('step3:connect') }}</v-btn>
+              &nbsp;
+              <v-btn color="primary" text v-on:click="step = 1">{{ $t('step3:previous') }}</v-btn>
+            </div>
+          </v-stepper-content>
+
+          <v-stepper-step v-bind:complete="step > 3" step="3" v-bind:rules="[() => supported]">
             <span class="step" v-if="!supported">{{ $t('step2:title:unsupported') }}</span>
             <span class="step" v-else-if="selected">{{ $t('step2:title:selected', { name: selected ? selected.name : null }) }}</span>
             <span class="step" v-else>{{ $t('step2:title') }}</span>
           </v-stepper-step>
 
-          <v-stepper-content step="2">
+          <v-stepper-content step="3">
             <div class="section">
               <upload
                 class="upload"
@@ -71,26 +88,9 @@
               </upload>
             </div>
             <div class="nav">
-              <v-btn color="primary" depressed v-on:click="step = 3" v-bind:disabled="!selected">{{ $t('step2:next') }}</v-btn>
+              <v-btn color="primary" depressed v-on:click="step = 4" v-bind:disabled="!selected">{{ $t('step2:next') }}</v-btn>
               &nbsp;
-              <v-btn color="primary" text v-on:click="step = 1">{{ $t('step2:previous') }}</v-btn>
-            </div>
-          </v-stepper-content>
-
-          <v-stepper-step v-bind:complete="step > 3" step="3">
-            <span class="step" v-if="name">{{ $t('step3:title:connected', { name }) }}</span>
-            <span class="step" v-else>{{ $t('step3:title') }}</span>
-          </v-stepper-step>
-
-          <v-stepper-content step="3">
-            <div class="section">
-              <p v-html="$t('step3:p1')" />
-              <p v-html="$t('step3:p2')" />
-            </div>
-            <div class="nav">
-              <v-btn color="primary" depressed v-on:click="connect">{{ $t('step3:connect') }}</v-btn>
-              &nbsp;
-              <v-btn color="primary" text v-on:click="step = 2">{{ $t('step3:previous') }}</v-btn>
+              <v-btn color="primary" text v-on:click="step = 2">{{ $t('step2:previous') }}</v-btn>
             </div>
           </v-stepper-content>
 
@@ -207,7 +207,7 @@ export default {
 
         const { manufacturerName, productName } = this.usb.device;
         this.name = `${manufacturerName} ${productName}`;
-        this.step = 4;
+        this.step = 3;
       } catch (e) {
         console.error(e);
         if (e.name != 'NotFoundError') {
