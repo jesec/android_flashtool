@@ -343,4 +343,13 @@ footer {
 .upload-hint.selected {
   border-color: #1E88E5;
 }
+
+.v-select__selection--comma {
+  margin: 7px 4px 7px 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
+}
 </style>
