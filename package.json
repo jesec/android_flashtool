@@ -14,7 +14,7 @@
     "vue-i18n": "^8.17.3",
     "vue-upload-component": "^2.8.20",
     "vuetify": "^2.2.23",
-    "webadb": "git+https://github.com/xingrz/webadb.js.git#umd"
+    "webadb": "git+https://github.com/jesec/webadb.js.git#master"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.3.1",
